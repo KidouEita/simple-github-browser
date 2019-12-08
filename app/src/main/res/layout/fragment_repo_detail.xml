@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.RepoDetailFragment">
+    tools:context=".view.repodetail.RepoDetailFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/repo_detail_tabs"

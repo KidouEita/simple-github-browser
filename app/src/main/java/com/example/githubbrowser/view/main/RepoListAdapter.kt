@@ -9,7 +9,7 @@ import com.example.githubbrowser.R
 import com.example.githubbrowser.entity.Repo
 
 class RepoListAdapter(private val data: List<Repo>) :
-    RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>() {
+    RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>(), View.OnClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false)
@@ -36,6 +36,10 @@ class RepoListAdapter(private val data: List<Repo>) :
     class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var title: TextView
         lateinit var author: TextView
+    }
+
+    override fun onClick(v: View?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

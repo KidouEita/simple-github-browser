@@ -1,4 +1,4 @@
-package com.example.githubbrowser.view
+package com.example.githubbrowser.view.repodetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,24 +29,12 @@ class RepoDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_repo_detail, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Setup Pager of TabLayout
-        pager.adapter = RepoDetailViewPagerAdapter(childFragmentManager)
+        pager.adapter =
+            RepoDetailViewPagerAdapter(childFragmentManager)
         tabs.setupWithViewPager(pager)
     }
-}
-
-private class RepoDetailViewPagerAdapter(fragmentManager: FragmentManager) :
-    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-
-    override fun getItem(position: Int): Fragment {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 }
