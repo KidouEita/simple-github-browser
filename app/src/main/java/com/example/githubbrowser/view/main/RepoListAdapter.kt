@@ -28,8 +28,8 @@ class RepoListAdapter(private val data: List<RepoVO>) :
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         val model = data[position]
         with(holder) {
-            title.text = model.name
-            author.text = model.author
+            title.text = model.getRepoName()
+            author.text = model.getAuthorName()
         }
     }
 

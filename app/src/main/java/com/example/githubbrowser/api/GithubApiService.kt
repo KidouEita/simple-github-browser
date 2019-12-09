@@ -3,6 +3,8 @@ package com.example.githubbrowser.api
 import com.example.githubbrowser.BuildConfig
 import com.example.githubbrowser.api.arg.Repo
 import com.example.githubbrowser.api.arg.TokenHolder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
@@ -15,8 +17,11 @@ interface GithubApiService {
         val apiService by lazy { create(BuildConfig.API_URL) }
 
         private fun create(url: String): GithubApiService {
+            val moshi = Moshi.Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()
             val retrofit = Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .baseUrl(url)
                 .build()
             return retrofit.create(GithubApiService::class.java)
