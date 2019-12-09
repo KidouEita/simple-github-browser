@@ -1,6 +1,6 @@
 package com.example.githubbrowser.entity
 
-data class Repo(
+data class RepoVO(
     val name: String,
     val author: String
 )

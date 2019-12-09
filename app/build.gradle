@@ -16,11 +16,18 @@ android {
         applicationId "com.example.githubbrowser"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField 'String', 'GITHUB_CLIENT_ID', '"d183a4127e47b545b222"'
+            buildConfigField 'String', 'GITHUB_CLIENT_SECRET', '"ed16dbe8fe66e9b03c0a9f1a79bff23e83745103"'
+            buildConfigField 'String', 'GITHUB_CLIENT_REDIRECT_URL', '"eitakidou://callback"'
+            buildConfigField 'String', 'API_URL', '"https://api.github.com/"'
+            buildConfigField 'String', 'LOGIN_URL', '"https://github.com/"'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -39,6 +46,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Fix Warning
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // Coroutines
     def coroutine_version = "1.3.2"

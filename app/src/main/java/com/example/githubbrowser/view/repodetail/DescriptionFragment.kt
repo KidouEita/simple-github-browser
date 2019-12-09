@@ -9,9 +9,7 @@ import android.view.ViewGroup
 
 import com.example.githubbrowser.R
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class DescriptionFragment : Fragment() {
 
     override fun onCreateView(

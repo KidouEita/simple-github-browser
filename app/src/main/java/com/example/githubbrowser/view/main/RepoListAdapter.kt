@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubbrowser.R
-import com.example.githubbrowser.entity.Repo
+import com.example.githubbrowser.entity.RepoVO
 
-class RepoListAdapter(private val data: List<Repo>) :
+class RepoListAdapter(private val data: List<RepoVO>) :
     RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>(), View.OnClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {

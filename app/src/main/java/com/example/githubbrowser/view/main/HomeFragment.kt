@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.githubbrowser.R
-import com.example.githubbrowser.entity.Repo
+import com.example.githubbrowser.entity.RepoVO
 import com.example.githubbrowser.util.OnItemClickListener
 import com.example.githubbrowser.util.addOnItemClickListener
 import com.example.githubbrowser.viewmodel.HomeViewModel
@@ -37,7 +36,7 @@ class HomeFragment : Fragment() {
             }
 
             // TODO : Get Data from api
-            adapter = RepoListAdapter(listOf(Repo("a", "b"), Repo("c", "d")))
+            adapter = RepoListAdapter(listOf(RepoVO("a", "b"), RepoVO("c", "d")))
             list.addOnItemClickListener(object: OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
                     Log.d(javaClass.simpleName, position.toString())
