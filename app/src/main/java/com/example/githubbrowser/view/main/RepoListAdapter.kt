@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubbrowser.R
-import com.example.githubbrowser.entity.RepoVO
+import com.example.githubbrowser.vo.RepoVO
 
 class RepoListAdapter(private val data: List<RepoVO>) :
     RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>(), View.OnClickListener {

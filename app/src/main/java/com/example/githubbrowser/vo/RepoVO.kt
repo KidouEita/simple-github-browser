@@ -1,4 +1,4 @@
-package com.example.githubbrowser.entity
+package com.example.githubbrowser.vo
 
 interface RepoVO {
     fun getRepoName(): String

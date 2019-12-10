@@ -1,11 +1,10 @@
 package com.example.githubbrowser.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.githubbrowser.entity.RepoVO
+import com.example.githubbrowser.vo.RepoVO
 import com.example.githubbrowser.repository.RepoRepository
 import com.example.githubbrowser.util.LoadingState
 import kotlinx.coroutines.launch
@@ -26,7 +25,6 @@ class HomeViewModel : ViewModel() {
             repository.loadPublicRepoList().observeForever{
                 when(it) {
                     is LoadingState.Success -> {
-//                        Log.d(javaClass.simpleName, it.value[0].title)
                         _repoList.postValue(it.value.asSequence())
                     }
                     is LoadingState.Error -> {
