@@ -19,6 +19,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.example.githubbrowser.BuildConfig
 import com.example.githubbrowser.R
 import com.example.githubbrowser.storage.GithubBrowserDatabase
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.userData.observe(this, Observer {
             setButtonAsLogout()
             navNameTextView.text = it.name
-//            navAvatar
+            Glide.with(this).load(it.avatarUrl).into(navAvatar)
         })
     }
 
@@ -124,7 +125,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navNameTextView.text = resources.getString(R.string.nav_header_title)
-        //        navAvatar
+        Glide.with(this).load(R.drawable.github_octocat).into(navAvatar)
     }
 
     private fun setButtonAsLogout() {
