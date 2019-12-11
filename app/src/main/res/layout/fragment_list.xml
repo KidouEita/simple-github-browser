@@ -5,6 +5,6 @@
     android:id="@+id/list_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.repodetail.ListFragment">
+    tools:context=".view.repodetail.RepoDetailListFragment">
 
 </androidx.recyclerview.widget.RecyclerView>

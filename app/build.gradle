@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -17,9 +18,16 @@ android {
         applicationId "com.example.githubbrowser"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 8
+        versionCode 9
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.incremental"     : "true",
+                             "room.schemaLocation"  : "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         debug {
@@ -68,14 +76,13 @@ dependencies {
     def moshi_version = '1.8.0'
     implementation "com.squareup.moshi:moshi:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
+//    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
     // Navigation
-    def navigation_version = "2.1.0"
-    implementation "androidx.navigation:navigation-fragment:$navigation_version"
-    implementation "androidx.navigation:navigation-ui:$navigation_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Retrofit
     def retrofit_version = "2.6.2"

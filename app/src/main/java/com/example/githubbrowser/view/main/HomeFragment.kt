@@ -1,14 +1,13 @@
 package com.example.githubbrowser.view.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubbrowser.R
 import com.example.githubbrowser.util.OnItemClickListener
@@ -37,31 +36,38 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
             }
+        }
+
+        viewModel.repoList.observe(viewLifecycleOwner, Observer { repos ->
+            list.adapter = RepoListAdapter(repos)
+            progressBar.visibility = View.GONE
 
             list.addOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
-                    Log.d(javaClass.simpleName, position.toString())
-                    findNavController().navigate(R.id.action_nav_home_to_repoDetailFragment)
+                    val action = HomeFragmentDirections.actionHomeFragmentToRepoDetailFragment(
+                        repos[position].getRepoName(),
+                        repos[position].getAuthorName()
+                    )
+                    findNavController().navigate(action)
                 }
             })
-        }
+        })
+
+        viewModel.loadError.observe(viewLifecycleOwner, Observer {
+            Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_LONG)
+            progressBar.visibility = View.GONE
+        })
     }
 
     override fun onResume() {
         super.onResume()
-
+        // TODO : Reload
         viewModel.loadAllPublicRepoList()
-
-        viewModel.repoList.observe(viewLifecycleOwner, Observer {
-            list.adapter = RepoListAdapter(it.toList())
-            progressBar.visibility = View.GONE
-        })
-
-        viewModel.loadError.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(list, it.message.toString(), Snackbar.LENGTH_LONG)
-            Log.e("Loading", it.message.toString())
-            progressBar.visibility = View.GONE
-        })
     }
 
+    // TODO
+    private fun reloadScreen() {
+        progressBar.visibility = View.VISIBLE
+        viewModel.loadAllPublicRepoList()
+    }
 }

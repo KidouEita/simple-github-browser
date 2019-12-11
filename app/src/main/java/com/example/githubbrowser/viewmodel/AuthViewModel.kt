@@ -1,6 +1,5 @@
 package com.example.githubbrowser.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +37,6 @@ class AuthViewModel : ViewModel() {
     fun login(code: String) {
         viewModelScope.launch {
             // Fetch
-            Log.d("Auth", "From Net")
             repository.getLoginData(code).observeForever {
                 when (it) {
                     is LoadingState.Success -> {
@@ -56,7 +54,6 @@ class AuthViewModel : ViewModel() {
     fun checkLogged() {
         viewModelScope.launch {
             repository.getLoggedData()?.run {
-                Log.d("Auth", "From DB : Name:$name")
                 // From DB
                 _userData.postValue(this)
                 _isLogin.postValue(true)
