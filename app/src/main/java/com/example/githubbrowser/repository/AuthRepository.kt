@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.githubbrowser.api.GithubApiService
-import com.example.githubbrowser.api.TokenHolder
 import com.example.githubbrowser.api.arg.Token
 import com.example.githubbrowser.api.arg.User
 import com.example.githubbrowser.entity.LoginData
@@ -17,7 +16,7 @@ object AuthRepository {
 
     private val authService = GithubApiService.authService
     private val apiService = GithubApiService.apiService
-    private val db = GithubBrowserDatabase.instance
+    private val loginDataDao = GithubBrowserDatabase.instance?.loginDataDao()
     private var loginData: LoginData? = null
 
     suspend fun getLoginData(code: String): LiveData<LoadingState<LoginData>> =
@@ -42,21 +41,23 @@ object AuthRepository {
                     token!!.accessToken
                 )
                 result.postValue(LoadingState.Success(loginData!!))
-                db?.loginDataDao()?.insertLoginData(loginData!!)
+                loginDataDao?.insertLoginData(loginData!!)
             }
             result
         }
 
     suspend fun clearUserData() =
         withContext(Dispatchers.IO) {
-            loginData?.run {
-                db?.loginDataDao()?.deleteLoginData(this)
-                loginData = null
-            }
+            loginDataDao?.cleanLoginData()
+            loginData = null
+            Log.d("FUN", "AuthRepo.clearUserData() loginData is Null?:${loginData}")
+            Log.d("FUN", "AuthRepo.clearUserData() getFromDB: ${getLoggedData()}")
+//            loginData?.run { loginDataDao?.cleanLoginData() }
         }
 
-    suspend fun getLoginData() =
+    suspend fun getLoggedData() =
         withContext(Dispatchers.IO) {
-            db?.loginDataDao()?.getLoggedInData()
+            Log.d("FUN", "AuthRepo.getLoggedData() = ${loginDataDao?.getLoggedInData()?.name}")
+            loginDataDao?.getLoggedInData()
         }
 }

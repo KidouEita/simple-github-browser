@@ -46,7 +46,6 @@ interface GithubApiService {
     * API
     * */
 
-    // TODO
     @GET("user")
     suspend fun getUserData(@Header("Authorization") authorization: String = TokenHolder.token): User
 
@@ -55,10 +54,14 @@ interface GithubApiService {
 
     // TODO
     @GET("repos/{author}/{repo}/contributors")
-    suspend fun getAllContributors()
+    suspend fun getAllCollaborators(
+        @Header("Authorization") authorization: String = TokenHolder.token,
+        @Path("author") author: String,
+        @Path("repo") repo: String
+    )
 
     // TODO
     @GET("users/{user}/repos")
-    suspend fun getOwnRepos()
+    suspend fun getOwnRepos(@Path("user") user: String)
 
 }

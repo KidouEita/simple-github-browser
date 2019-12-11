@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
 
         // Setup DB
-        GithubBrowserDatabase.buildDatabase(applicationContext)
+        GithubBrowserDatabase.buildDatabase(this)
 
         viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
@@ -55,26 +55,6 @@ class MainActivity : AppCompatActivity() {
             navViewButton = findViewById(R.id.button)
             navAvatar = findViewById(R.id.avatar)
             navNameTextView = findViewById(R.id.name_text_view)
-        }
-
-        viewModel.login(null)
-
-        viewModel.isLogin.observe(this, Observer { isLogin ->
-            if (isLogin) {
-                setButtonAsLogout()
-            } else {
-                setButtonAsLogin()
-            }
-        })
-
-        val uri = intent.data
-        if (uri.toString().startsWith(BuildConfig.GITHUB_CLIENT_REDIRECT_URL)) {
-            val code = uri?.getQueryParameter("code")
-            Log.d(javaClass.simpleName, uri.toString())
-
-            code?.run {
-                viewModel.login(this)
-            }
         }
 
         // Passing each menu ID as a set of Ids because each
@@ -93,6 +73,26 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        viewModel.checkLogged()
+
+        viewModel.isLogin.observe(this, Observer { isLogin ->
+            if (isLogin) {
+                setButtonAsLogout()
+            } else {
+                setButtonAsLogin()
+            }
+        })
+
+        val uri = intent.data
+        if (uri.toString().startsWith(BuildConfig.GITHUB_CLIENT_REDIRECT_URL)) {
+            val code = uri?.getQueryParameter("code")
+            Log.d(javaClass.simpleName, uri.toString())
+
+            code?.run {
+                viewModel.login(this)
+            }
+        }
 
         viewModel.userData.observe(this, Observer {
             setButtonAsLogout()

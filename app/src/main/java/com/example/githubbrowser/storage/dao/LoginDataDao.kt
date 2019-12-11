@@ -9,6 +9,9 @@ interface LoginDataDao {
     @Query("SELECT * FROM login_data LIMIT 1")
     fun getLoggedInData(): LoginData?
 
+    @Query("DELETE FROM login_data")
+    fun cleanLoginData()
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLoginData(loginData: LoginData)
 

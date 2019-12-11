@@ -1,5 +1,6 @@
 package com.example.githubbrowser.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,35 +26,40 @@ class AuthViewModel : ViewModel() {
     init {
         _isLogin.postValue(false)
         viewModelScope.launch {
-            repository.getLoginData()?.run {
+            repository.getLoggedData()?.run {
                 _isLogin.postValue(true)
+                _userData.postValue(this)
             } ?: run {
                 _isLogin.postValue(false)
             }
         }
     }
 
-    fun login(code: String?) {
+    fun login(code: String) {
         viewModelScope.launch {
-            repository.getLoginData()?.run {
+            // Fetch
+            Log.d("Auth", "From Net")
+            repository.getLoginData(code).observeForever {
+                when (it) {
+                    is LoadingState.Success -> {
+                        _userData.postValue(it.value)
+                        _isLogin.postValue(true)
+                    }
+                    is LoadingState.Error -> {
+                        _error.postValue(it.exception)
+                    }
+                }
+            }
+        }
+    }
+
+    fun checkLogged() {
+        viewModelScope.launch {
+            repository.getLoggedData()?.run {
+                Log.d("Auth", "From DB : Name:$name")
                 // From DB
                 _userData.postValue(this)
                 _isLogin.postValue(true)
-            } ?: run {
-                // Fetch
-                code?.run {
-                    repository.getLoginData(code).observeForever {
-                        when (it) {
-                            is LoadingState.Success -> {
-                                _userData.postValue(it.value)
-                                _isLogin.postValue(true)
-                            }
-                            is LoadingState.Error -> {
-                                _error.postValue(it.exception)
-                            }
-                        }
-                    }
-                }
             }
         }
     }

@@ -58,7 +58,8 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.loadError.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(view!!, it.message.toString(), Snackbar.LENGTH_LONG)
+            Snackbar.make(list, it.message.toString(), Snackbar.LENGTH_LONG)
+            Log.e("Loading", it.message.toString())
             progressBar.visibility = View.GONE
         })
     }
