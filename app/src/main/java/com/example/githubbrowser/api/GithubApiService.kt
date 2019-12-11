@@ -1,9 +1,10 @@
 package com.example.githubbrowser.api
 
 import com.example.githubbrowser.BuildConfig
-import com.example.githubbrowser.api.arg.Repo
-import com.example.githubbrowser.api.arg.Token
-import com.example.githubbrowser.api.arg.User
+import com.example.githubbrowser.model.Commit
+import com.example.githubbrowser.model.Repo
+import com.example.githubbrowser.model.Token
+import com.example.githubbrowser.model.User
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -52,13 +53,18 @@ interface GithubApiService {
     @GET("repositories")
     suspend fun getPublicRepos(): List<Repo>
 
-    // TODO
-    @GET("repos/{author}/{repo}/contributors")
+    @GET("repos/{author}/{repo}/commits")
+    suspend fun getAllCommits(
+        @Path("author") author: String,
+        @Path("repo") repo: String
+    ): List<Commit>
+
+    @GET("repos/{author}/{repo}/collaborators")
     suspend fun getAllCollaborators(
         @Header("Authorization") authorization: String = TokenHolder.token,
         @Path("author") author: String,
         @Path("repo") repo: String
-    )
+    ): List<User>
 
     // TODO
     @GET("users/{user}/repos")

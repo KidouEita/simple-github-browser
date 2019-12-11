@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
 
-        // TODO
         // Setup Button State
         with(navView.getHeaderView(0)) {
             navViewButton = findViewById(R.id.button)

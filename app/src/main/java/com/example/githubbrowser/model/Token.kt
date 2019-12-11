@@ -1,4 +1,4 @@
-package com.example.githubbrowser.api.arg
+package com.example.githubbrowser.model
 
 import com.squareup.moshi.Json
 

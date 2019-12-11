@@ -15,28 +15,24 @@ import kotlinx.android.synthetic.main.fragment_repo_detail.repo_detail_tabs as t
 
 class RepoDetailFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = RepoDetailFragment()
-    }
-
     private val args: RepoDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<RepoDetailViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_repo_detail, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_repo_detail, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Setup Pager of TabLayout
         pager.adapter = RepoDetailViewPagerAdapter(
             childFragmentManager,
-            resources.getStringArray(R.array.detail_page_title)
+            resources.getStringArray(R.array.detail_page_title),
+            listOf(
+                RepoDetailCommitFragment(viewModel, args),
+                RepoDetailCollaboratorFragment(viewModel, args)
+            )
         )
         tabs.setupWithViewPager(pager)
     }

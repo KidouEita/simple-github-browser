@@ -45,8 +45,8 @@ class HomeFragment : Fragment() {
             list.addOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
                     val action = HomeFragmentDirections.actionHomeFragmentToRepoDetailFragment(
-                        repos[position].getRepoName(),
-                        repos[position].getAuthorName()
+                        repos[position].title,
+                        repos[position].owner.name
                     )
                     findNavController().navigate(action)
                 }
@@ -62,12 +62,12 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // TODO : Reload
-        viewModel.loadAllPublicRepoList()
+        viewModel.loadAllPublicRepos()
     }
 
     // TODO
     private fun reloadScreen() {
         progressBar.visibility = View.VISIBLE
-        viewModel.loadAllPublicRepoList()
+        viewModel.loadAllPublicRepos()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.githubbrowser.entity
+package com.example.githubbrowser.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,6 +1,6 @@
 package com.example.githubbrowser.api
 
-import com.example.githubbrowser.entity.LoginData
+import com.example.githubbrowser.model.LoginData
 
 class TokenHolder {
 

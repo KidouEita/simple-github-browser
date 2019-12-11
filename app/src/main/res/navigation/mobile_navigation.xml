@@ -43,13 +43,11 @@
         tools:layout="@layout/fragment_repo_detail">
         <argument
             android:name="repoName"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
+            android:defaultValue="RepoName"
+            app:argType="string" />
         <argument
             android:name="repoAuthor"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
+            android:defaultValue="Author"
+            app:argType="string" />
     </fragment>
 </navigation>

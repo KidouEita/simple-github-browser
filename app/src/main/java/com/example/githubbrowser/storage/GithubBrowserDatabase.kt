@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.githubbrowser.entity.LoginData
+import com.example.githubbrowser.model.LoginData
 import com.example.githubbrowser.storage.dao.LoginDataDao
 
 @Database(

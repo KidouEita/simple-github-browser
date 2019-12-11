@@ -4,9 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.githubbrowser.api.GithubApiService
-import com.example.githubbrowser.api.arg.Token
-import com.example.githubbrowser.api.arg.User
-import com.example.githubbrowser.entity.LoginData
+import com.example.githubbrowser.api.TokenHolder
+import com.example.githubbrowser.model.LoginData
+import com.example.githubbrowser.model.Token
+import com.example.githubbrowser.model.User
 import com.example.githubbrowser.storage.GithubBrowserDatabase
 import com.example.githubbrowser.util.LoadingState
 import kotlinx.coroutines.Dispatchers
@@ -50,14 +51,13 @@ object AuthRepository {
         withContext(Dispatchers.IO) {
             loginDataDao?.cleanLoginData()
             loginData = null
-            Log.d("FUN", "AuthRepo.clearUserData() loginData is Null?:${loginData}")
-            Log.d("FUN", "AuthRepo.clearUserData() getFromDB: ${getLoggedData()}")
-//            loginData?.run { loginDataDao?.cleanLoginData() }
         }
 
     suspend fun getLoggedData() =
         withContext(Dispatchers.IO) {
-            Log.d("FUN", "AuthRepo.getLoggedData() = ${loginDataDao?.getLoggedInData()?.name}")
+            if (loginDataDao?.getLoggedInData() != null) {
+                TokenHolder.data = loginDataDao.getLoggedInData()
+            }
             loginDataDao?.getLoggedInData()
         }
 }

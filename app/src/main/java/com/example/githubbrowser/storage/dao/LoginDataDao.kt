@@ -1,7 +1,7 @@
 package com.example.githubbrowser.storage.dao
 
 import androidx.room.*
-import com.example.githubbrowser.entity.LoginData
+import com.example.githubbrowser.model.LoginData
 
 @Dao
 interface LoginDataDao {

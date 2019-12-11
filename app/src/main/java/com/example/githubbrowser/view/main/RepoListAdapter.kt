@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubbrowser.R
-import com.example.githubbrowser.vo.RepoVO
+import com.example.githubbrowser.model.Repo
 
-class RepoListAdapter(private val data: List<RepoVO>) :
+class RepoListAdapter(private val data: List<Repo>) :
     RecyclerView.Adapter<RepoListAdapter.RepoViewHolder>(), View.OnClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
@@ -17,21 +17,22 @@ class RepoListAdapter(private val data: List<RepoVO>) :
         item.layoutParams.height = 300
 
         // UI Binding
-        vh.title = item.findViewById(R.id.item_repo_title)
-        vh.author = item.findViewById(R.id.item_repo_author)
-
+        with(vh) {
+            title = item.findViewById(R.id.item_repo_title)
+            author = item.findViewById(R.id.item_repo_author)
+        }
         return vh
     }
-
-    override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         val model = data[position]
         with(holder) {
-            title.text = model.getRepoName()
-            author.text = model.getAuthorName()
+            title.text = model.title
+            author.text = model.owner.name
         }
     }
+
+    override fun getItemCount() = data.size
 
     class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var title: TextView
