@@ -5,5 +5,6 @@ import com.squareup.moshi.Json
 data class Repo(
     val id: Int,
     @Json(name = "name") val title: String,
+    val private: Boolean = false,
     val owner: User
 )

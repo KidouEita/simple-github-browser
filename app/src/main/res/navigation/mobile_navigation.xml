@@ -20,10 +20,14 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.githubbrowser.view.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/myRepoFragment"
+        android:name="com.example.githubbrowser.view.MyRepoFragment"
+        android:label="@string/menu_repo"
+        tools:layout="@layout/fragment_author" >
+        <action
+            android:id="@+id/action_myRepoFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_share"
@@ -49,5 +53,21 @@
             android:name="repoAuthor"
             android:defaultValue="Author"
             app:argType="string" />
+        <action
+            android:id="@+id/action_repoDetailFragment_to_authorFragment"
+            app:destination="@id/authorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authorFragment"
+        android:name="com.example.githubbrowser.view.AuthorFragment"
+        android:label="{repoAuthor}"
+        tools:layout="@layout/fragment_author">
+        <argument
+            android:name="repoAuthor"
+            android:defaultValue="Author"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_authorFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
     </fragment>
 </navigation>

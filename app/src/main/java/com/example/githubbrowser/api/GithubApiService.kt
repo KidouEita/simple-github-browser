@@ -47,14 +47,23 @@ interface GithubApiService {
     * API
     * */
 
+    // For Logged In
     @GET("user")
-    suspend fun getUserData(@Header("Authorization") authorization: String = TokenHolder.token): User
+    suspend fun getLoginUserData(@Header("Authorization") authorization: String = TokenHolder.token): User
+    @GET("user/repos")
+    suspend fun getLoginUserRepos(@Header("Authorization") authorization: String = TokenHolder.token): List<Repo>
 
     @GET("repositories")
     suspend fun getPublicRepos(): List<Repo>
 
+    @GET("users/{user}")
+    suspend fun getUserData(@Path("user") user: String): User
+    @GET("users/{user}/repos")
+    suspend fun getUserRepos(@Path("user") user: String): List<Repo>
+
     @GET("repos/{author}/{repo}/commits")
     suspend fun getAllCommits(
+        @Header("Authorization") authorization: String = TokenHolder.token,
         @Path("author") author: String,
         @Path("repo") repo: String
     ): List<Commit>
@@ -65,9 +74,4 @@ interface GithubApiService {
         @Path("author") author: String,
         @Path("repo") repo: String
     ): List<User>
-
-    // TODO
-    @GET("users/{user}/repos")
-    suspend fun getOwnRepos(@Path("user") user: String)
-
 }

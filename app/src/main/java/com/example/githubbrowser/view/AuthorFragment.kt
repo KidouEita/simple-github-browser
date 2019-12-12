@@ -12,10 +12,6 @@ import com.example.githubbrowser.viewmodel.AuthorViewModel
 
 class AuthorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AuthorFragment()
-    }
-
     private lateinit var viewModel: AuthorViewModel
 
     override fun onCreateView(

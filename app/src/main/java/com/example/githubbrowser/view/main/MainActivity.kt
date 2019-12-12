@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.nav_tools,
+                R.id.myRepoFragment,
                 R.id.nav_share,
                 R.id.nav_send
             ), drawerLayout

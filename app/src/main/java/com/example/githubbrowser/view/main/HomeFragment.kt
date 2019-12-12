@@ -10,12 +10,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubbrowser.R
+import com.example.githubbrowser.ui.RepoRecyclerViewAdapter
 import com.example.githubbrowser.util.OnItemClickListener
 import com.example.githubbrowser.util.addOnItemClickListener
 import com.example.githubbrowser.viewmodel.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.home_list as list
 import kotlinx.android.synthetic.main.fragment_home.home_progress_bar as progressBar
+import kotlinx.android.synthetic.main.fragment_home.home_search_button as searchButton
+import kotlinx.android.synthetic.main.fragment_home.home_search_edit as searchEditText
 
 
 class HomeFragment : Fragment() {
@@ -32,6 +35,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
+        searchButton.setOnClickListener {
+            if (searchEditText.text.isNotEmpty()) {
+                // TODO
+            } else {
+                // TODO
+            }
+        }
+
         with(list) {
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -39,7 +50,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.repoList.observe(viewLifecycleOwner, Observer { repos ->
-            list.adapter = RepoListAdapter(repos)
+            list.adapter = RepoRecyclerViewAdapter(repos)
             progressBar.visibility = View.GONE
 
             list.addOnItemClickListener(object : OnItemClickListener {

@@ -29,7 +29,7 @@ object AuthRepository {
 
             try {
                 token = authService.login(code = code)
-                user = apiService.getUserData("Bearer ${token.accessToken}")
+                user = apiService.getLoginUserData("Bearer ${token.accessToken}")
             } catch (e: Throwable) {
                 result.postValue(LoadingState.Error(e))
             }
