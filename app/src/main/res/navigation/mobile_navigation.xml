@@ -60,14 +60,18 @@
     <fragment
         android:id="@+id/authorFragment"
         android:name="com.example.githubbrowser.view.AuthorFragment"
-        android:label="{repoAuthor}"
+        android:label="{authorName}"
         tools:layout="@layout/fragment_author">
         <argument
-            android:name="repoAuthor"
+            android:name="authorName"
             android:defaultValue="Author"
             app:argType="string" />
         <action
             android:id="@+id/action_authorFragment_to_repoDetailFragment"
             app:destination="@id/repoDetailFragment" />
+        <argument
+            android:name="authorAvatarUrl"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

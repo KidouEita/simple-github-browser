@@ -2,17 +2,18 @@ package com.example.githubbrowser.view.repodetail
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubbrowser.R
 import com.example.githubbrowser.ui.CollaboratorRecyclerViewAdapter
 import com.example.githubbrowser.util.OnItemClickListener
 import com.example.githubbrowser.util.addOnItemClickListener
+import com.example.githubbrowser.util.makeSnackError
 import com.example.githubbrowser.viewmodel.RepoDetailViewModel
 import kotlinx.android.synthetic.main.fragment_repo_detail_collaborator.repo_detail_collaborator_error_text as errorTextView
 import kotlinx.android.synthetic.main.fragment_repo_detail_collaborator.repo_detail_collaborator_list as list
@@ -41,19 +42,19 @@ class RepoDetailCollaboratorFragment(
             }
         }
 
-        viewModel.collaboratorList.observe(viewLifecycleOwner, Observer {
+        viewModel.collaboratorList.observe(viewLifecycleOwner, Observer { collaborators ->
             context?.run {
                 list.adapter =
-                    CollaboratorRecyclerViewAdapter(this, it)
+                    CollaboratorRecyclerViewAdapter(this, collaborators)
                 progressBar.visibility = View.GONE
                 list.addOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClicked(position: Int, view: View) {
-                        Log.d("Collaborator", position.toString())
-//                        val action = HomeFragmentDirections.actionHomeFragmentToRepoDetailFragment(
-//                            repos[position].title,
-//                            repos[position].owner.name
-//                        )
-//                        findNavController().navigate(action)
+                        val action =
+                            RepoDetailFragmentDirections.actionRepoDetailFragmentToAuthorFragment(
+                                collaborators[position].name,
+                                collaborators[position].avatarUrl
+                            )
+                        findNavController().navigate(action)
                     }
                 })
             }
@@ -62,6 +63,7 @@ class RepoDetailCollaboratorFragment(
         viewModel.loadCollaboratorError.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
             errorTextView.text = it.message.toString()
+            makeSnackError(this, it)
         })
 
         viewModel.loadAllCollaborators(args.repoAuthor, args.repoName)

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubbrowser.R
@@ -22,6 +23,7 @@ class RepoRecyclerViewAdapter(private val data: List<Repo>) :
         with(vh) {
             title = item.findViewById(R.id.item_repo_title)
             author = item.findViewById(R.id.item_repo_author)
+            privateImage = item.findViewById(R.id.item_repo_image)
         }
         return vh
     }
@@ -31,7 +33,14 @@ class RepoRecyclerViewAdapter(private val data: List<Repo>) :
         with(holder) {
             title.text = model.title
             author.text = model.owner.name
+            if (model.private) privateImage.visibility = View.VISIBLE
         }
+    }
+
+    override fun onViewRecycled(holder: RepoViewHolder) {
+        super.onViewRecycled(holder)
+        // Cleanup State of ImageView
+        holder.privateImage.visibility = View.GONE
     }
 
     override fun getItemCount() = data.size
@@ -39,6 +48,7 @@ class RepoRecyclerViewAdapter(private val data: List<Repo>) :
     class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var title: TextView
         lateinit var author: TextView
+        lateinit var privateImage: ImageView
     }
 
     override fun onClick(v: View?) {}

@@ -94,8 +94,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.userData.observe(this, Observer {
             setButtonAsLogout()
-            navNameTextView.text = it.name
-            Glide.with(this).load(it.avatarUrl).into(navAvatar)
+            navNameTextView.text = it?.name ?: resources.getString(R.string.nav_header_user)
+            Glide.with(this)
+                .load(it?.avatarUrl ?: "")
+                .error(R.drawable.github_octocat)
+                .into(navAvatar)
         })
     }
 
@@ -106,7 +109,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setButtonAsLogin() {
         with(navViewButton) {
-            text = "登入"
+            text = resources.getString(R.string.nav_header_button_login)
             setOnClickListener {
                 startActivity(
                     Intent(
@@ -116,13 +119,13 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-        navNameTextView.text = resources.getString(R.string.nav_header_title)
+        navNameTextView.text = resources.getString(R.string.nav_header_user)
         Glide.with(this).load(R.drawable.github_octocat).into(navAvatar)
     }
 
     private fun setButtonAsLogout() {
         with(navViewButton) {
-            text = "登出"
+            text = resources.getString(R.string.nav_header_button_logout)
             setOnClickListener {
                 viewModel.logout()
             }

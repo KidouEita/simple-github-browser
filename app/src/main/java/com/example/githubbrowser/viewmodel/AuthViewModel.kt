@@ -64,6 +64,7 @@ class AuthViewModel : ViewModel() {
     fun logout() {
         viewModelScope.launch {
             repository.clearUserData()
+            _userData.postValue(null)
             _isLogin.postValue(false)
         }
     }

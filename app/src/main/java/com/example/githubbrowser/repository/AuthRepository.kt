@@ -41,6 +41,7 @@ object AuthRepository {
                     user.avatarUrl,
                     token!!.accessToken
                 )
+                TokenHolder.data = loginData
                 result.postValue(LoadingState.Success(loginData!!))
                 loginDataDao?.insertLoginData(loginData!!)
             }
@@ -50,6 +51,7 @@ object AuthRepository {
     suspend fun clearUserData() =
         withContext(Dispatchers.IO) {
             loginDataDao?.cleanLoginData()
+            TokenHolder.data = null
             loginData = null
         }
 

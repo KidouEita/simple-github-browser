@@ -16,7 +16,8 @@ data class Commit(
 
 data class CommitNode(
     val message: String,
-    @Json(name = "author") val detail: Detail
+    @Json(name = "author")
+    val detail: Detail
 )
 
-data class Detail(val date: String)
+data class Detail(val name: String, val date: String)

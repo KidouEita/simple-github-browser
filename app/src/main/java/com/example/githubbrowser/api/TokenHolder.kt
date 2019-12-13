@@ -6,8 +6,8 @@ class TokenHolder {
 
     companion object {
         var data: LoginData? = null
-        val token
-            get() = "Bearer ${data?.token}"
+        val token: String
+            get() = if (data?.token != null) "Bearer ${data?.token}" else ""
     }
 
 }

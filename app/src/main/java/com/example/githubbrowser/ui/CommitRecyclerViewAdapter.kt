@@ -42,7 +42,7 @@ class CommitRecyclerViewAdapter(
                 .load(model.author?.avatarUrl)
                 .error(R.drawable.github_octocat)
                 .into(avatar)
-            name.text = model.author?.name
+            name.text = model.author?.name ?: model.content.detail.name
             date.text = model.getDate()
         }
     }

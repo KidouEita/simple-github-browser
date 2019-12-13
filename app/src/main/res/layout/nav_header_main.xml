@@ -16,7 +16,7 @@
         android:id="@+id/avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:contentDescription="@string/nav_header_desc"
+        android:contentDescription="@string/des_author_image"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/github_octocat" />
 
@@ -25,13 +25,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
+        android:text="@string/nav_header_user"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="@string/nav_header_button_login" />
 
 </LinearLayout>
