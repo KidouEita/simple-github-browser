@@ -14,8 +14,8 @@ import com.example.githubbrowser.R
 import com.example.githubbrowser.ui.RepoRecyclerViewAdapter
 import com.example.githubbrowser.util.OnItemClickListener
 import com.example.githubbrowser.util.addOnItemClickListener
+import com.example.githubbrowser.util.makeSnackErrorRetryable
 import com.example.githubbrowser.viewmodel.HomeViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.home_list as list
 import kotlinx.android.synthetic.main.fragment_home.home_progress_bar as progressBar
 import kotlinx.android.synthetic.main.fragment_home.home_search as searchView
@@ -54,36 +54,40 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.repoList.observe(viewLifecycleOwner, Observer { repos ->
-            list.adapter = RepoRecyclerViewAdapter(repos)
-            progressBar.visibility = View.GONE
-
-            list.addOnItemClickListener(object : OnItemClickListener {
-                override fun onItemClicked(position: Int, view: View) {
-                    val action = HomeFragmentDirections.actionHomeFragmentToRepoDetailFragment(
-                        repos[position].title,
-                        repos[position].owner.name
-                    )
-                    findNavController().navigate(action)
-                }
-            })
-        })
-
-        viewModel.loadError.observe(viewLifecycleOwner, Observer {
-            Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_LONG)
-            progressBar.visibility = View.GONE
-        })
+        setupObserver()
     }
 
     override fun onResume() {
         super.onResume()
-        // TODO : Reload
+        loadView()
+    }
+
+    private fun loadView() {
+        progressBar.visibility = View.VISIBLE
         viewModel.loadAllPublicRepos()
     }
 
-    // TODO
-    private fun reloadScreen() {
-        progressBar.visibility = View.VISIBLE
-        viewModel.loadAllPublicRepos()
+    private fun setupObserver() {
+        with(viewModel) {
+            repoList.observe(viewLifecycleOwner, Observer { repos ->
+                list.adapter = RepoRecyclerViewAdapter(repos)
+                progressBar.visibility = View.GONE
+
+                list.addOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClicked(position: Int, view: View) {
+                        val action = HomeFragmentDirections.actionHomeFragmentToRepoDetailFragment(
+                            repos[position].title,
+                            repos[position].owner.name
+                        )
+                        findNavController().navigate(action)
+                    }
+                })
+            })
+
+            loadError.observe(viewLifecycleOwner, Observer {
+                makeSnackErrorRetryable(this@HomeFragment, it, View.OnClickListener { loadView() })
+                progressBar.visibility = View.GONE
+            })
+        }
     }
 }

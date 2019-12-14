@@ -29,9 +29,7 @@ class AuthorFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_author, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_author, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,17 +59,17 @@ class AuthorFragment : Fragment() {
         viewModel.loadError.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
             makeSnackErrorRetryable(this, it, View.OnClickListener {
-                reloadView()
+                loadView()
             })
         })
     }
 
     override fun onResume() {
         super.onResume()
-        reloadView()
+        loadView()
     }
 
-    private fun reloadView() {
+    private fun loadView() {
         viewModel.loadRepos(args.authorName)
 
         Glide.with(context!!)

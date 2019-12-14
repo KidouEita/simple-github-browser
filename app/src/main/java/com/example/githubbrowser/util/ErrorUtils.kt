@@ -1,5 +1,6 @@
 package com.example.githubbrowser.util
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.githubbrowser.R
@@ -16,6 +17,7 @@ fun makeSnackErrorRetryable(
         if (error is HttpException) {
             makeSnackErrorRetryable(it, errorCodeHandle(fragment, error.code()), onClickListener)
         }
+        Log.e(fragment.javaClass.simpleName, "${error.message}")
     }
 }
 
@@ -43,6 +45,7 @@ fun makeSnackError(
         if (error is HttpException) {
             makeSnackError(it, errorCodeHandle(fragment, error.code()), onClickListener)
         }
+        Log.e(fragment.javaClass.simpleName, "${error.message}")
     }
 }
 
@@ -61,17 +64,22 @@ private fun makeSnackError(
         .show()
 }
 
+// ErrorCode Handling
+// Particular Case
 private fun errorCodeHandle(fragment: Fragment, errorCode: Int): String? = when (fragment) {
 
     is RepoDetailCollaboratorFragment ->
         when (errorCode) {
             403 -> "無權限查看Collaborators"
-            else -> null
+            else -> handleDefaultCode(errorCode)
         }
 
     // Use Default Error Message
-    else -> when (errorCode) {
-        401 -> "請先登入後再重試"
-        else -> null
-    }
+    else -> handleDefaultCode(errorCode)
+}
+
+// General Case
+private fun handleDefaultCode(errorCode: Int): String? = when (errorCode) {
+    401 -> "請先登入後再重試"
+    else -> null
 }

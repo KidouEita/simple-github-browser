@@ -52,15 +52,11 @@ interface GithubApiService {
     @GET("user")
     suspend fun getLoginUserData(@Header("Authorization") authorization: String = TokenHolder.token): User
 
+    // Repos
     @GET("user/repos")
     suspend fun getLoginUserRepos(@Header("Authorization") authorization: String = TokenHolder.token): List<Repo>
-
     @GET("repositories")
     suspend fun getPublicRepos(): List<Repo>
-
-    @GET("users/{user}")
-    suspend fun getUserData(@Path("user") user: String): User
-
     @GET("users/{user}/repos")
     suspend fun getUserRepos(@Path("user") user: String): List<Repo>
 

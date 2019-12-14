@@ -22,9 +22,3 @@ fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {
         }
     })
 }
-
-//recyclerView.addOnItemClickListener(object: OnItemClickListener {
-//    override fun onItemClicked(position: Int, view: View) {
-//        Do something
-//    }
-//})

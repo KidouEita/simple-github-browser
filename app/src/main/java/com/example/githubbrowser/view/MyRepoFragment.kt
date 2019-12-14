@@ -65,7 +65,7 @@ class MyRepoFragment : Fragment() {
         viewModel.loadError.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
             makeSnackErrorRetryable(this, it, View.OnClickListener {
-                reloadView()
+                loadView()
             })
         })
 
@@ -78,16 +78,16 @@ class MyRepoFragment : Fragment() {
                     .into(avatarView)
                 nameTextView.text = ""
             }
-            reloadView()
+            loadView()
         })
     }
 
     override fun onResume() {
         super.onResume()
-        reloadView()
+        loadView()
     }
 
-    private fun reloadView() {
+    private fun loadView() {
         viewModel.loadRepos()
 
         authViewModel.userData.value?.run {

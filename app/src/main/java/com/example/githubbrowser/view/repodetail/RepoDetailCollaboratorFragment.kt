@@ -28,10 +28,7 @@ class RepoDetailCollaboratorFragment(
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_repo_detail_collaborator, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_repo_detail_collaborator, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,7 +59,7 @@ class RepoDetailCollaboratorFragment(
 
         viewModel.loadCollaboratorError.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
-            errorTextView.text = it.message.toString()
+            errorTextView.text = "Failed to Load"
             makeSnackError(this, it)
         })
 

@@ -65,20 +65,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        setupObserver()
     }
 
     override fun onResume() {
         super.onResume()
 
         viewModel.checkLogged()
-
-        viewModel.isLogin.observe(this, Observer { isLogin ->
-            if (isLogin) {
-                setButtonAsLogout()
-            } else {
-                setButtonAsLogin()
-            }
-        })
 
         val uri = intent.data
         if (uri.toString().startsWith(BuildConfig.GITHUB_CLIENT_REDIRECT_URL)) {
@@ -89,20 +82,29 @@ class MainActivity : AppCompatActivity() {
                 viewModel.login(this)
             }
         }
-
-        viewModel.userData.observe(this, Observer {
-            setButtonAsLogout()
-            navNameTextView.text = it?.name ?: resources.getString(R.string.nav_header_user)
-            Glide.with(this)
-                .load(it?.avatarUrl ?: "")
-                .error(R.drawable.github_octocat)
-                .into(navAvatar)
-        })
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun setupObserver() {
+        with(viewModel) {
+            isLogin.observe(this@MainActivity, Observer { isLogin ->
+                if (isLogin) setButtonAsLogout()
+                else setButtonAsLogin()
+            })
+
+            userData.observe(this@MainActivity, Observer {
+                setButtonAsLogout()
+                navNameTextView.text = it?.name ?: resources.getString(R.string.nav_header_user)
+                Glide.with(this@MainActivity)
+                    .load(it?.avatarUrl ?: "")
+                    .error(R.drawable.github_octocat)
+                    .into(navAvatar)
+            })
+        }
     }
 
     private fun setButtonAsLogin() {
@@ -118,7 +120,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         navNameTextView.text = resources.getString(R.string.nav_header_user)
-        Glide.with(this).load(R.drawable.github_octocat).into(navAvatar)
+        Glide.with(this)
+            .load(R.drawable.github_octocat)
+            .into(navAvatar)
     }
 
     private fun setButtonAsLogout() {
