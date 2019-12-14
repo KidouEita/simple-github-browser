@@ -17,6 +17,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
@@ -29,17 +32,6 @@
             app:destination="@id/repoDetailFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.example.githubbrowser.view.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.example.githubbrowser.view.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
     <fragment
         android:id="@+id/repoDetailFragment"
         android:name="com.example.githubbrowser.view.repodetail.RepoDetailFragment"
@@ -73,5 +65,17 @@
             android:name="authorAvatarUrl"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.githubbrowser.view.SearchFragment"
+        android:label="Search Result"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_repoDetailFragment"
+            app:destination="@id/repoDetailFragment" />
+        <argument
+            android:name="queryString"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.2"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/github_octocat" />
 
     <TextView
         android:id="@+id/author_name"

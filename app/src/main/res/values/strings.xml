@@ -20,10 +20,11 @@
     <string name="error_action_okay">OK</string>
     <string name="error_action_cancel">Cancel</string>
 
+
+    <string name="search_result">Result Of \"%s\":</string>
+    <string name="search_no_match">Sorry,Nothing match \"%s\"</string>
+
     <!-- ContentDescription -->
     <string name="des_repo_image">Image of Repository</string>
     <string name="des_author_image">Image of Author</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

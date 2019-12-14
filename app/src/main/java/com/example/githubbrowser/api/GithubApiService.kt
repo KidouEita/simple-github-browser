@@ -1,6 +1,7 @@
 package com.example.githubbrowser.api
 
 import com.example.githubbrowser.BuildConfig
+import com.example.githubbrowser.api.arg.SearchResponse
 import com.example.githubbrowser.model.Commit
 import com.example.githubbrowser.model.Repo
 import com.example.githubbrowser.model.Token
@@ -50,6 +51,7 @@ interface GithubApiService {
     // For Logged In
     @GET("user")
     suspend fun getLoginUserData(@Header("Authorization") authorization: String = TokenHolder.token): User
+
     @GET("user/repos")
     suspend fun getLoginUserRepos(@Header("Authorization") authorization: String = TokenHolder.token): List<Repo>
 
@@ -58,6 +60,7 @@ interface GithubApiService {
 
     @GET("users/{user}")
     suspend fun getUserData(@Path("user") user: String): User
+
     @GET("users/{user}/repos")
     suspend fun getUserRepos(@Path("user") user: String): List<Repo>
 
@@ -74,4 +77,9 @@ interface GithubApiService {
         @Path("author") author: String,
         @Path("repo") repo: String
     ): List<User>
+
+    @GET("search/repositories")
+    suspend fun searchRepositories(
+        @Query("q") searchText: String
+    ): SearchResponse
 }

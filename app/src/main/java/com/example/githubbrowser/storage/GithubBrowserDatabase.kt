@@ -9,7 +9,8 @@ import com.example.githubbrowser.storage.dao.LoginDataDao
 
 @Database(
     entities = [LoginData::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class GithubBrowserDatabase : RoomDatabase() {
 

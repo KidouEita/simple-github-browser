@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true">
-
-    <EditText
-        android:id="@+id/home_search_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Search for..."
-        android:importantForAutofill="no"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/home_list"
-        app:layout_constraintEnd_toStartOf="@+id/home_search_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/home_progress_bar"
@@ -24,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_search_edit" />
+        app:layout_constraintTop_toTopOf="@+id/home_list" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_list"
@@ -34,15 +23,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_search_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/home_search" />
 
-    <Button
-        android:id="@+id/home_search_button"
-        android:layout_width="wrap_content"
+    <SearchView
+        android:id="@+id/home_search"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/home_list"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,9 +18,7 @@ import com.example.githubbrowser.viewmodel.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.home_list as list
 import kotlinx.android.synthetic.main.fragment_home.home_progress_bar as progressBar
-import kotlinx.android.synthetic.main.fragment_home.home_search_button as searchButton
-import kotlinx.android.synthetic.main.fragment_home.home_search_edit as searchEditText
-
+import kotlinx.android.synthetic.main.fragment_home.home_search as searchView
 
 class HomeFragment : Fragment() {
 
@@ -35,13 +34,19 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
-        searchButton.setOnClickListener {
-            if (searchEditText.text.isNotEmpty()) {
-                // TODO
-            } else {
-                // TODO
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.run {
+                    val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment(query)
+                    findNavController().navigate(action)
+                }
+                return false
             }
-        }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return searchView.query != newText
+            }
+        })
 
         with(list) {
             layoutManager = LinearLayoutManager(context).apply {

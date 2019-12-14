@@ -60,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.homeFragment,
-                R.id.myRepoFragment,
-                R.id.nav_share,
-                R.id.nav_send
+                R.id.myRepoFragment
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
