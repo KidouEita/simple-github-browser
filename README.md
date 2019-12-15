@@ -1,7 +1,7 @@
 # simple-github-browser  
   
 Libraries:  
-Android Jetpack [  
+Android Jetpack  
 >Fragment  
 >KTX  
 >Lifecycles  
@@ -9,9 +9,6 @@ Android Jetpack [
 >Navigation  
 >Room  
 >ViewModel  
-]  
+  
 Kotlin Coroutines  
 Room  
-Retrofit  
-Moshi  
-Glide  
