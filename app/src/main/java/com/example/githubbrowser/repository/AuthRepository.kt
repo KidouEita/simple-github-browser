@@ -1,6 +1,5 @@
 package com.example.githubbrowser.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.githubbrowser.api.GithubApiService
@@ -34,7 +33,6 @@ object AuthRepository {
                 result.postValue(LoadingState.Error(e))
             }
             user?.run {
-                Log.d("AuthRepo", "Token:${token?.accessToken} Type:${token?.tokenType}")
                 loginData = LoginData(
                     user.id,
                     user.name,

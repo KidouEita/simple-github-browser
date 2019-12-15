@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubbrowser.R
 import com.example.githubbrowser.ui.CommitRecyclerViewAdapter
+import com.example.githubbrowser.util.makeSnackErrorRetryable
 import com.example.githubbrowser.viewmodel.RepoDetailViewModel
 import kotlinx.android.synthetic.main.fragment_repo_detail_commit.repo_detail_commit_error_text as errorTextView
 import kotlinx.android.synthetic.main.fragment_repo_detail_commit.repo_detail_commit_list as list
@@ -46,8 +47,14 @@ class RepoDetailCommitFragment(
         viewModel.loadCommitError.observe(viewLifecycleOwner, Observer {
             progressBar.visibility = View.GONE
             errorTextView.text = it.message.toString()
+            makeSnackErrorRetryable(this, it, View.OnClickListener { loadView() })
         })
 
+        loadView()
+    }
+
+    private fun loadView() {
+        progressBar.visibility = View.VISIBLE
         viewModel.loadAllCommits(args.repoAuthor, args.repoName)
     }
 }
