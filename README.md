@@ -9,6 +9,8 @@ Android Jetpack
 >Navigation  
 >Room  
 >ViewModel  
-  
+
+Glide  
 Kotlin Coroutines  
-Room  
+Moshi  
+Retrofit
