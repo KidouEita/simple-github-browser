@@ -71,6 +71,7 @@ private fun errorCodeHandle(fragment: Fragment, errorCode: Int): String? = when 
     is RepoDetailCollaboratorFragment ->
         when (errorCode) {
             403 -> "無權限查看Collaborators"
+            401 -> "重新登入後再嘗試整裡Collaborators"
             else -> handleDefaultCode(errorCode)
         }
 
