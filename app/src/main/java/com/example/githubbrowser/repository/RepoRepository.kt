@@ -18,11 +18,13 @@ object RepoRepository {
     // Repos
     suspend fun loadPublicRepoList(): LiveData<LoadingState<List<Repo>>> =
         loadRepoList { apiService.getPublicRepos() }
+
     suspend fun loadUserRepos(name: String? = null): LiveData<LoadingState<List<Repo>>> =
         loadRepoList {
             if (name != null) apiService.getUserRepos(name)
             else apiService.getLoginUserRepos()
         }
+
     private suspend fun loadRepoList(apiData: suspend () -> List<Repo>): LiveData<LoadingState<List<Repo>>> =
         withContext(Dispatchers.IO) {
             val result = MutableLiveData<LoadingState<List<Repo>>>()
@@ -33,9 +35,7 @@ object RepoRepository {
             } catch (e: Throwable) {
                 result.postValue(LoadingState.Error(e))
             }
-            data?.run {
-                result.postValue(LoadingState.Success(this))
-            }
+            data?.run { result.postValue(LoadingState.Success(this)) }
             result
         }
 
@@ -54,10 +54,7 @@ object RepoRepository {
             } catch (e: Throwable) {
                 result.postValue(LoadingState.Error(e))
             }
-            data?.run {
-                result.postValue(LoadingState.Success(this))
-            }
-
+            data?.run { result.postValue(LoadingState.Success(this)) }
             result
         }
 
@@ -92,9 +89,7 @@ object RepoRepository {
             } catch (e: Throwable) {
                 result.postValue(LoadingState.Error(e))
             }
-            data?.run {
-                result.postValue(LoadingState.Success(repos))
-            }
+            data?.run { result.postValue(LoadingState.Success(repos)) }
             result
         }
 }
